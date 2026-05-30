@@ -109,3 +109,33 @@ footer{
     padding:80px;
     color:#777;
 }
+.main-nav {
+    background: #111;
+    padding: 14px 20px;
+    text-align: center;
+}
+
+.main-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+.main-nav a:hover {
+    color: #ffcc00;
+}
+@media (max-width: 768px) {
+    .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .main-nav a {
+        font-size: 13px;
+        margin: 0;
+    }
+}
