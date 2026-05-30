@@ -4,196 +4,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="style.css">
 <title>解釈設計研究所</title>
-
-<style>
-
-body{
-    margin:0;
-    background:#0f0f0f;
-    color:white;
-    font-family:sans-serif;
-}
-
-header{
-    background:#1b1b1b;
-    text-align:center;
-    padding:60px 20px;
-}
-
-h1{
-    margin:0;
-    font-size:56px;
-}
-
-.subtitle{
-    color:#b0b0b0;
-    margin-top:15px;
-}
-
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:30px;
-}
-
-.section-title{
-    font-size:36px;
-    margin-top:50px;
-    margin-bottom:20px;
-}
-
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#1a1a1a;
-    border:1px solid #333;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.card img{
-    width:100%;
-    height:300px;
-    object-fit:contain;
-    background:black;
-}
-
-.card h3{
-    margin:15px;
-}
-
-.card p{
-    margin:15px;
-    color:#ccc;
-}
-
-.aica{
-    background:#1a1a1a;
-    border:1px solid #333;
-    border-radius:12px;
-    padding:30px;
-    margin-top:20px;
-    text-align:center;
-    font-size:24px;
-}
-
-footer{
-    text-align:center;
-    padding:50px;
-    color:#777;
-}
-
-</style>
-
 </head>
 
 <body>
 
-<header>
+<section class="hero">
 
-<h1>解釈設計研究所</h1>
+<img
+    src="images/hero_heteroji_maverick.png"
+    alt="ヘテオジマーベリック">
 
-<div class="subtitle">
-生活の大半は無意識の解釈を基に行動する
+<div class="hero-content">
+
+    <h1>解釈設計研究所</h1>
+
+    <p>
+        生活の大半は無意識の解釈を基に行動する
+    </p>
+
 </div>
 
-</header>
+</section>
 
 <div class="container">
 
-<h2 class="section-title">解釈設計とは</h2>
+<h2 class="section-title">
+    解釈設計とは
+</h2>
 
 <div class="aica">
-解釈 → 行動 → 感情 → 再解釈
-<br><br>
-Act → Interpret → Correct → Act
+
+    解釈 → 行動 → 感情 → 再解釈
+
+    <br><br>
+
+    Act → Interpret → Correct → Act
+
 </div>
 
-<h2 class="section-title">行動ヒヒーン図鑑</h2>
+<h2 class="section-title">
+    行動ヒヒーン図鑑
+</h2>
 
 <div class="gallery">
 
-<div class="card">
-<img src="images/kh_01.png">
-<h3>行動ヒヒーン01</h3>
+    <div class="card">
+        <img src="images/kh_01.png">
+        <h3>行動ヒヒーン01</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_02.png">
+        <h3>行動ヒヒーン02</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_03.png">
+        <h3>行動ヒヒーン03</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_04.png">
+        <h3>行動ヒヒーン04</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_05.png">
+        <h3>行動ヒヒーン05</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_06.png">
+        <h3>行動ヒヒーン06</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_07.png">
+        <h3>行動ヒヒーン07</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/kh_08.png">
+        <h3>行動ヒヒーン08</h3>
+    </div>
+
 </div>
 
-<div class="card">
-<img src="images/kh_02.png">
-<h3>行動ヒヒーン02</h3>
-</div>
-
-<div class="card">
-<img src="images/kh_03.png">
-<h3>行動ヒヒーン03</h3>
-</div>
-
-<div class="card">
-<img src="images/kh_04.png">
-<h3>行動ヒヒーン04</h3>
-</div>
-
-<div class="card">
-<img src="images/kh_05.png">
-<h3>行動ヒヒーン05</h3>
-</div>
-
-<div class="card">
-<img src="images/kh_06.png">
-<h3>行動ヒヒーン06</h3>
-</div>
-
-<div class="card">
-<img src="images/kh_07.png">
-<h3>行動ヒヒーン07</h3>
-</div>
-
-<div class="card">
-<img src="images/kh_08.png">
-<h3>行動ヒヒーン08</h3>
-</div>
-
-</div>
-
-<h2 class="section-title">感情ブヒー図鑑</h2>
+<h2 class="section-title">
+    感情ブヒー図鑑
+</h2>
 
 <div class="gallery">
 
-<div class="card">
-<img src="images/bh_01.png">
-<h3>感情ブヒー01</h3>
-</div>
+    <div class="card">
+        <img src="images/bh_01.png">
+        <h3>感情ブヒー01</h3>
+    </div>
 
-<div class="card">
-<img src="images/bh_02.png">
-<h3>感情ブヒー02</h3>
-</div>
+    <div class="card">
+        <img src="images/bh_02.png">
+        <h3>感情ブヒー02</h3>
+    </div>
 
-<div class="card">
-<img src="images/bh_03.png">
-<h3>感情ブヒー03</h3>
-</div>
+    <div class="card">
+        <img src="images/bh_03.png">
+        <h3>感情ブヒー03</h3>
+    </div>
 
-<div class="card">
-<img src="images/bh_04.png">
-<h3>感情ブヒー04</h3>
-</div>
+    <div class="card">
+        <img src="images/bh_04.png">
+        <h3>感情ブヒー04</h3>
+    </div>
 
-<div class="card">
-<img src="images/bh_05.png">
-<h3>感情ブヒー05</h3>
-</div>
-
-</div>
+    <div class="card">
+        <img src="images/bh_05.png">
+        <h3>感情ブヒー05</h3>
+    </div>
 
 </div>
-
+</div>
 <footer>
 
 解釈設計研究所 © 2026
