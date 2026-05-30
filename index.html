@@ -1,25 +1,161 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<title>解釈設計研究所</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解釈設計研究所</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#111;
+            color:#fff;
+            line-height:1.8;
+        }
+
+        header{
+            text-align:center;
+            padding:60px 20px;
+            background:#222;
+        }
+
+        h1{
+            margin:0;
+            font-size:48px;
+        }
+
+        .subtitle{
+            color:#aaa;
+            margin-top:10px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+            padding:30px;
+        }
+
+        .card{
+            background:#1c1c1c;
+            border:1px solid #333;
+            border-radius:12px;
+            padding:20px;
+            margin-bottom:20px;
+        }
+
+        .card h2{
+            margin-top:0;
+        }
+
+        .character{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        footer{
+            text-align:center;
+            padding:40px;
+            color:#888;
+        }
+
+        a{
+            color:#66ccff;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>解釈設計研究所</h1>
+<header>
 
-<p>
-生活の大半は無意識の解釈を基に行動する
-</p>
+    <h1>解釈設計研究所</h1>
 
-<h2>キャラクター</h2>
+    <p class="subtitle">
+        生活の大半は無意識の解釈を基に行動する
+    </p>
 
-<ul>
-<li>行動ヒヒーン🐎</li>
-<li>感情ブヒー🐷</li>
-<li>達成パオーン🐘</li>
-<li>ヘテオジマーベリック🌈🐎</li>
-</ul>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>解釈設計とは</h2>
+
+        <p>
+            解釈 → 行動 → 感情 → 再解釈
+        </p>
+
+        <p>
+            人は無意識に解釈し、
+            解釈を基に行動し、
+            行動の結果によって感情が生まれる。
+        </p>
+
+        <p>
+            解釈設計研究所は、
+            その循環を観察するための実験場です。
+        </p>
+
+    </div>
+
+    <h2>主要キャラクター</h2>
+
+    <div class="character">
+
+        <div class="card">
+            <h3>🐎 行動ヒヒーン</h3>
+            <p>まず動く。</p>
+        </div>
+
+        <div class="card">
+            <h3>🐷 感情ブヒー</h3>
+            <p>喜怒哀楽担当。</p>
+        </div>
+
+        <div class="card">
+            <h3>🐘 達成パオーン</h3>
+            <p>積み重ねの結果。</p>
+        </div>
+
+        <div class="card">
+            <h3>🌈🐎 ヘテオジマーベリック</h3>
+            <p>群れないまま進む存在。</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>AICAサイクル</h2>
+
+        <p>
+            Act → Interpret → Correct → Act
+        </p>
+
+        <p>
+            行動し、
+            解釈し、
+            修正し、
+            再び行動する。
+        </p>
+
+    </div>
+
+</div>
+
+<footer>
+
+    解釈設計研究所 © 2026
+
+</footer>
 
 </body>
+
 </html>
