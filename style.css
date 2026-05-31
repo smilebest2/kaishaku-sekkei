@@ -139,3 +139,19 @@ footer{
         margin: 0;
     }
 }
+.concept-image{
+    text-align:center;
+    margin:40px 0;
+}
+
+.main-concept-image{
+    width:100%;
+    max-width:800px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.concept-image p{
+    margin-top:15px;
+    font-size:1.1rem;
+}
