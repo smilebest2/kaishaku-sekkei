@@ -110,6 +110,26 @@ body{
     padding:15px;
 }
 
+.character-card-link{
+    display:block;
+    min-height:100%;
+    color:#fff;
+    text-decoration:none;
+}
+
+.character-card-link img{
+    height:260px;
+}
+
+.character-card-link p{
+    padding:0 15px 18px;
+    color:#ddd;
+}
+
+.character-card-link:hover h3{
+    color:#ffcc00;
+}
+
 footer{
     text-align:center;
     padding:80px;
