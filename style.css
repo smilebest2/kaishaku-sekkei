@@ -212,3 +212,40 @@ footer{
     margin-top:15px;
     font-size:1.1rem;
 }
+
+.diagram-link-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:12px;
+    margin-top:24px;
+}
+
+.diagram-link-list a{
+    display:block;
+    min-height:48px;
+    padding:14px 16px;
+    border:1px solid #333;
+    border-radius:8px;
+    background:#181818;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    line-height:1.5;
+}
+
+.diagram-link-list a:hover{
+    border-color:#ffcc00;
+    color:#ffcc00;
+}
+
+@media (max-width: 768px) {
+    .diagram-link-list{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .diagram-link-list a{
+        padding:14px;
+        font-size:15px;
+    }
+}
