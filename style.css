@@ -110,6 +110,8 @@ footer{
     color:#777;
 }
 .main-nav {
+    position: relative;
+    z-index: 20;
     background: #111;
     padding: 14px 20px;
     text-align: center;
