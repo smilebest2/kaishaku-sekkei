@@ -150,7 +150,19 @@ footer{
     border-radius:12px;
     box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
+.button{
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 24px;
+    background:#333;
+    color:#fff;
+    text-decoration:none;
+    border-radius:8px;
+}
 
+.button:hover{
+    opacity:0.8;
+}
 .concept-image p{
     margin-top:15px;
     font-size:1.1rem;
