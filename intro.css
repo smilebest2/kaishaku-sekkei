@@ -96,6 +96,31 @@
     outline:none;
 }
 
+.intro-replay{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+    margin-top:24px;
+    padding:9px 18px;
+    border:1px solid rgba(255,255,255,0.6);
+    border-radius:8px;
+    background:rgba(0,0,0,0.48);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    line-height:1.4;
+    text-decoration:none;
+    text-shadow:none;
+}
+
+.intro-replay:hover,
+.intro-replay:focus-visible{
+    border-color:#ffcc00;
+    color:#ffcc00;
+    outline:none;
+}
+
 @keyframes intro-flash{
     0%{ opacity:0; transform:scale(0.2); }
     28%{ opacity:1; transform:scale(0.78); }

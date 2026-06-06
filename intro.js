@@ -1,5 +1,5 @@
 (() => {
-    const storageKey = "kaishakuIntroSeen:test";
+    const storageKey = "kaishakuIntroSeen";
     const overlay = document.querySelector("[data-intro-overlay]");
     const canvas = document.querySelector("[data-intro-canvas]");
     const flash = document.querySelector("[data-intro-flash]");

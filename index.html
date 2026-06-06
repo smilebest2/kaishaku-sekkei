@@ -5,12 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="intro.css">
     <title>解釈設計研究所｜行動ヒヒーン・感情ブヒー・達成パオーン</title>
     <meta name="description"
         content="解釈設計研究所は、行動ヒヒーン、感情ブヒー、達成パオーン、ヘテオジマーベリックを通じて、行動と解釈の関係を研究するサイトです。">
 </head>
 
 <body>
+
+<div class="intro-overlay" data-intro-overlay aria-label="解釈設計研究所イントロ">
+    <canvas class="intro-canvas" data-intro-canvas></canvas>
+    <div class="intro-flash" data-intro-flash></div>
+    <img
+        class="intro-maverick"
+        data-intro-maverick
+        src="images/top_anime/heteroji-maverick.png"
+        alt="ヘテオジマーベリック">
+    <div class="intro-title" data-intro-title>解釈設計研究所</div>
+    <button class="intro-skip" type="button" data-intro-skip>スキップ</button>
+</div>
 
 <section class="hero">
 
@@ -30,6 +43,7 @@
         <p>人は理解した通りではなく、解釈した通りに行動する。</p>
         <p>生活の大半は無意識の行動で構成されている。</p>
         <p>行動ヒヒーン・感情ブヒー・達成パオーン・ヘテオジマーベリックの世界</p>
+        <a href="index.html?intro=1" class="intro-replay">イントロを見る</a>
     </div>
 
 </section>
@@ -279,6 +293,7 @@
     解釈設計研究所 © 2026
 </footer>
 
+<script src="intro.js"></script>
 </body>
 
 </html>
