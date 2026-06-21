@@ -269,3 +269,342 @@ footer{
         font-size:15px;
     }
 }
+
+.archive-hero,
+.music-heading{
+    max-width:1000px;
+    margin:0 auto;
+    padding:clamp(64px, 10vw, 120px) 20px clamp(34px, 6vw, 64px);
+    text-align:center;
+}
+
+.archive-hero h1,
+.music-heading h1{
+    margin:.1em 0;
+    font-size:clamp(42px, 9vw, 88px);
+    line-height:1.15;
+}
+
+.archive-hero > p:last-child,
+.music-heading > p:last-child{
+    max-width:720px;
+    margin:14px auto 0;
+    color:#d7d7d7;
+    font-size:clamp(15px, 2.6vw, 20px);
+}
+
+.archive-kicker{
+    color:#ffcc00;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.2em;
+}
+
+.archive-container{
+    padding-top:0;
+}
+
+.manga-gallery{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:clamp(18px, 3vw, 34px);
+}
+
+.manga-card{
+    overflow:hidden;
+    border:1px solid #333;
+    border-radius:14px;
+    background:#181818;
+}
+
+.manga-card img{
+    display:block;
+    width:100%;
+    height:auto;
+    background:#fff;
+}
+
+.manga-card figcaption{
+    padding:12px 16px;
+    color:#fff;
+    font-weight:700;
+    text-align:center;
+}
+
+.main-nav a[aria-current="page"]{
+    color:#ffcc00;
+}
+
+.music-page{
+    background:
+        radial-gradient(circle at 50% 5%, rgba(255,204,0,.1), transparent 32rem),
+        #0f0f0f;
+}
+
+.music-main{
+    padding:0 16px;
+}
+
+.pv-shell{
+    width:min(1040px, 100%);
+    margin:0 auto;
+}
+
+.pv-stage{
+    position:relative;
+    aspect-ratio:16 / 9;
+    min-height:300px;
+    overflow:hidden;
+    border:1px solid #383838;
+    border-radius:18px;
+    background:#111;
+    box-shadow:0 24px 80px rgba(0,0,0,.5);
+    isolation:isolate;
+}
+
+.pv-sky{
+    position:absolute;
+    inset:-3%;
+    z-index:-3;
+    background-position:center;
+    background-size:cover;
+    transform:scale(1.04);
+    transition:background-image .35s ease;
+}
+
+.pv-stage.is-playing .pv-sky{
+    animation:pv-drift 12s ease-in-out infinite alternate;
+}
+
+.pv-stage::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,.74) 0%, rgba(0,0,0,.23) 52%, rgba(0,0,0,.08)),
+        linear-gradient(0deg, rgba(0,0,0,.58), transparent 42%);
+}
+
+.pv-rays{
+    position:absolute;
+    inset:-45%;
+    z-index:-2;
+    opacity:.2;
+    background:conic-gradient(from 210deg, transparent, #fff 4deg, transparent 9deg, transparent 28deg, rgba(255,204,0,.7) 33deg, transparent 40deg);
+    animation:pv-rays 24s linear infinite;
+}
+
+.pv-character{
+    position:absolute;
+    right:4%;
+    bottom:-5%;
+    width:45%;
+    height:88%;
+    object-fit:contain;
+    object-position:center bottom;
+    filter:drop-shadow(0 18px 20px rgba(0,0,0,.42));
+}
+
+.pv-stage.is-changing .pv-character{
+    animation:pv-character-in .55s cubic-bezier(.2,.8,.2,1);
+}
+
+.pv-copy{
+    position:absolute;
+    left:6%;
+    top:50%;
+    width:48%;
+    transform:translateY(-50%);
+    text-shadow:0 3px 18px rgba(0,0,0,.8);
+}
+
+.pv-eyebrow{
+    color:#ffcc00;
+    font-size:clamp(10px, 1.5vw, 15px);
+    font-weight:900;
+    letter-spacing:.18em;
+}
+
+.pv-copy h2{
+    margin:.08em 0 .18em;
+    font-size:clamp(28px, 5vw, 64px);
+    line-height:1.1;
+}
+
+.pv-copy > p:last-child{
+    max-width:34em;
+    font-size:clamp(12px, 1.8vw, 18px);
+    line-height:1.65;
+}
+
+.pv-badge{
+    position:absolute;
+    top:20px;
+    right:22px;
+    padding:5px 11px;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:999px;
+    background:rgba(0,0,0,.42);
+    font-size:12px;
+    font-weight:800;
+}
+
+.pv-play{
+    position:absolute;
+    left:50%;
+    top:50%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:5;
+    padding:14px 22px;
+    border:0;
+    border-radius:999px;
+    background:#ffcc00;
+    color:#111;
+    cursor:pointer;
+    transform:translate(-50%, -50%);
+    box-shadow:0 8px 30px rgba(0,0,0,.42);
+}
+
+.pv-play span{
+    font-size:20px;
+}
+
+.pv-stage.is-playing .pv-play{
+    opacity:0;
+    pointer-events:none;
+}
+
+.pv-controls{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:14px;
+    padding:14px 4px;
+}
+
+.pv-controls button{
+    min-width:82px;
+    padding:8px 14px;
+    border:1px solid #555;
+    border-radius:7px;
+    background:#1a1a1a;
+    color:#fff;
+    cursor:pointer;
+}
+
+.pv-controls input{
+    width:100%;
+    accent-color:#ffcc00;
+}
+
+.pv-controls output{
+    min-width:92px;
+    color:#bbb;
+    font-variant-numeric:tabular-nums;
+    font-size:13px;
+}
+
+.music-message{
+    width:min(840px, 100%);
+    margin:clamp(54px, 9vw, 100px) auto 0;
+    padding:clamp(26px, 5vw, 50px);
+    border:1px solid #333;
+    border-radius:16px;
+    background:#181818;
+    text-align:center;
+}
+
+.music-message h2{
+    font-size:clamp(24px, 4vw, 42px);
+}
+
+.music-message p{
+    margin:16px auto 0;
+    color:#d5d5d5;
+}
+
+.music-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+@keyframes pv-drift{
+    to{ transform:scale(1.09) translate3d(-1.2%, -.8%, 0); }
+}
+
+@keyframes pv-rays{
+    to{ transform:rotate(360deg); }
+}
+
+@keyframes pv-character-in{
+    from{ opacity:0; transform:translate3d(7%, 3%, 0) scale(.96); }
+}
+
+@media (max-width: 700px){
+    .manga-gallery{
+        grid-template-columns:1fr;
+    }
+
+    .pv-stage{
+        aspect-ratio:9 / 14;
+        min-height:0;
+    }
+
+    .pv-stage::after{
+        background:
+            linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.16) 64%),
+            linear-gradient(90deg, rgba(0,0,0,.22), transparent);
+    }
+
+    .pv-character{
+        right:5%;
+        bottom:23%;
+        width:90%;
+        height:66%;
+    }
+
+    .pv-copy{
+        left:7%;
+        right:7%;
+        top:auto;
+        bottom:6%;
+        width:auto;
+        transform:none;
+    }
+
+    .pv-copy h2{
+        font-size:clamp(30px, 10vw, 48px);
+    }
+
+    .pv-copy > p:last-child{
+        font-size:14px;
+    }
+
+    .pv-badge{
+        top:12px;
+        right:12px;
+    }
+
+    .pv-controls{
+        grid-template-columns:auto 1fr;
+    }
+
+    .pv-controls output{
+        grid-column:1 / -1;
+        text-align:right;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .pv-stage *,
+    .pv-stage::before,
+    .pv-stage::after{
+        animation:none !important;
+        transition:none !important;
+    }
+}

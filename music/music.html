@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>ヒヒーン行動歌 PV｜解釈設計研究所</title>
+    <meta name="description" content="行動ヒヒーンと解釈設計研究所の仲間たちによる、ヒヒーン行動歌のミュージックビデオです。">
+</head>
+<body class="music-page">
+    <nav class="main-nav" aria-label="メインメニュー">
+        <a href="../index.html">TOP</a>
+        <a href="../docs/game-hihiin.html">ゲーム</a>
+        <a href="../manga/manga.html">漫画</a>
+        <a href="music.html" aria-current="page">音楽</a>
+        <a href="../diagram-library/diagram-library.html">図解ライブラリ</a>
+        <a href="../koudou-hihiin/koudou-hihiin.html">行動ヒヒーン</a>
+        <a href="../kanjou-buhii/kanjou-buhii.html">感情ブヒー</a>
+        <a href="../tassei-paoon/tassei-paoon.html">達成パオーン</a>
+        <a href="../heteroji-maverick/heteroji-maverick.html">ヘテオジマーベリック</a>
+    </nav>
+
+    <main class="music-main">
+        <header class="music-heading">
+            <p class="archive-kicker">KAISHAKU SEKKEI MUSIC VIDEO</p>
+            <h1>ヒヒーン行動歌</h1>
+            <p>考えて止まるより、動いて、解釈して、修正して、もう一度。</p>
+        </header>
+
+        <section class="pv-shell" aria-label="ヒヒーン行動歌 プロモーションビデオ">
+            <div class="pv-stage" id="pvStage">
+                <div class="pv-sky" id="pvSky"></div>
+                <div class="pv-rays"></div>
+                <img class="pv-character" id="pvCharacter" src="../images/kh_01.png" alt="">
+                <div class="pv-copy" aria-live="polite">
+                    <p class="pv-eyebrow" id="pvEyebrow">ACTION 01</p>
+                    <h2 id="pvTitle">まず、動く。</h2>
+                    <p id="pvText">完璧な答えを待たず、小さな一歩を踏み出そう。</p>
+                </div>
+                <button class="pv-play" id="pvPlay" type="button" aria-label="PVを再生">
+                    <span aria-hidden="true">▶</span>
+                    <strong>PVを再生</strong>
+                </button>
+                <div class="pv-badge">行動ヒヒーン</div>
+            </div>
+
+            <div class="pv-controls">
+                <button id="playToggle" type="button">再生</button>
+                <input id="pvProgress" type="range" min="0" max="1000" value="0" aria-label="再生位置">
+                <output id="pvTime">0:00 / 0:00</output>
+            </div>
+            <audio id="pvAudio" preload="metadata" src="ヒヒーン行動歌.mp3"></audio>
+        </section>
+
+        <section class="music-message">
+            <h2>行動 → 解釈 → 修正 → 再行動</h2>
+            <p>結果は判決ではなく、次の行動を設計するための材料。感情も迷いも連れて、今日の一歩を進めます。</p>
+            <div class="music-links">
+                <a class="button" href="../koudou-hihiin/koudou-hihiin.html">行動ヒヒーンを見る</a>
+                <a class="button" href="../docs/game-hihiin.html">ゲームで走る</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>解釈設計研究所</footer>
+
+    <script>
+    (() => {
+        "use strict";
+
+        const audio = document.getElementById("pvAudio");
+        const stage = document.getElementById("pvStage");
+        const playButton = document.getElementById("pvPlay");
+        const playToggle = document.getElementById("playToggle");
+        const progress = document.getElementById("pvProgress");
+        const time = document.getElementById("pvTime");
+        const sky = document.getElementById("pvSky");
+        const character = document.getElementById("pvCharacter");
+        const eyebrow = document.getElementById("pvEyebrow");
+        const title = document.getElementById("pvTitle");
+        const text = document.getElementById("pvText");
+
+        const scenes = [
+            { at: 0, image: "../images/kh_01.png", bg: "../docs/images/game-hihiin/backgrounds/night.webp", eyebrow: "ACTION 01", title: "まず、動く。", text: "完璧な答えを待たず、小さな一歩を踏み出そう。" },
+            { at: .13, image: "../images/bh_01.png", bg: "../docs/images/game-hihiin/backgrounds/dawn.webp", eyebrow: "EMOTION", title: "感情も、一緒に行く。", text: "不安があってもいい。感情ブヒーは置いていかない。" },
+            { at: .26, image: "../images/kh_06.png", bg: "../docs/images/game-hihiin/backgrounds/morning.webp", eyebrow: "ACTION 02", title: "やってみて、わかる。", text: "行動の結果は、あなたを責める判決ではない。" },
+            { at: .39, image: "../images/kaishaku_cycle.png", bg: "../docs/images/game-hihiin/backgrounds/noon.webp", eyebrow: "AICA", title: "解釈して、修正する。", text: "行動、解釈、修正、再行動。前進は循環から生まれる。" },
+            { at: .53, image: "../images/hm_01.png", bg: "../docs/images/game-hihiin/backgrounds/noon.webp", eyebrow: "MAVERICK", title: "他人の正解を、疑え。", text: "ヘテオジマーベリックは、自分の解釈を取り戻す。" },
+            { at: .66, image: "../images/kh_13.png", bg: "../docs/images/game-hihiin/backgrounds/sunset.webp", eyebrow: "RE-ACTION", title: "もう一度、動く。", text: "修正した一歩は、最初の一歩より少し強い。" },
+            { at: .79, image: "../images/dm_01.png", bg: "../docs/images/game-hihiin/backgrounds/sunset.webp", eyebrow: "ACHIEVEMENT", title: "小さな達成を祝おう。", text: "達成パオーン。進んだ事実を、ちゃんと受け取る。" },
+            { at: .91, image: "../images/kh_20.png", bg: "../docs/images/game-hihiin/backgrounds/dawn.webp", eyebrow: "NEW DAWN", title: "今日も、行動ヒヒーン。", text: "夜明けは待つものではなく、一歩ずつ近づくもの。" }
+        ];
+
+        let sceneIndex = -1;
+
+        function formatTime(value) {
+            if (!Number.isFinite(value)) return "0:00";
+            const minutes = Math.floor(value / 60);
+            const seconds = Math.floor(value % 60).toString().padStart(2, "0");
+            return `${minutes}:${seconds}`;
+        }
+
+        function setScene(index) {
+            if (index === sceneIndex) return;
+            sceneIndex = index;
+            const scene = scenes[index];
+            stage.classList.remove("is-changing");
+            void stage.offsetWidth;
+            stage.classList.add("is-changing");
+            character.src = scene.image;
+            sky.style.backgroundImage = `linear-gradient(rgba(0,0,0,.14), rgba(0,0,0,.5)), url("${scene.bg}")`;
+            eyebrow.textContent = scene.eyebrow;
+            title.textContent = scene.title;
+            text.textContent = scene.text;
+        }
+
+        function sync() {
+            const duration = audio.duration || 0;
+            const ratio = duration ? audio.currentTime / duration : 0;
+            let index = 0;
+            for (let i = 1; i < scenes.length; i += 1) {
+                if (ratio >= scenes[i].at) index = i;
+            }
+            setScene(index);
+            progress.value = Math.round(ratio * 1000);
+            time.value = `${formatTime(audio.currentTime)} / ${formatTime(duration)}`;
+        }
+
+        async function togglePlayback() {
+            if (audio.paused) {
+                try {
+                    await audio.play();
+                } catch {
+                    return;
+                }
+            } else {
+                audio.pause();
+            }
+        }
+
+        playButton.addEventListener("click", togglePlayback);
+        playToggle.addEventListener("click", togglePlayback);
+        progress.addEventListener("input", () => {
+            if (audio.duration) audio.currentTime = audio.duration * Number(progress.value) / 1000;
+        });
+        audio.addEventListener("loadedmetadata", sync);
+        audio.addEventListener("timeupdate", sync);
+        audio.addEventListener("play", () => {
+            stage.classList.add("is-playing");
+            playToggle.textContent = "一時停止";
+        });
+        audio.addEventListener("pause", () => {
+            stage.classList.remove("is-playing");
+            playToggle.textContent = "再生";
+        });
+        audio.addEventListener("ended", () => {
+            audio.currentTime = 0;
+            sync();
+        });
+
+        setScene(0);
+    })();
+    </script>
+</body>
+</html>

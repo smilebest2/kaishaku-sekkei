@@ -317,23 +317,89 @@
     }
 
     @media (max-height: 680px) and (orientation: landscape) {
+        body {
+            overflow: hidden;
+        }
+
         .page-shell {
-            width: min(100%, 980px);
+            width: 100%;
+            height: 100svh;
+            min-height: 0;
+            padding: max(6px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
             display: grid;
-            grid-template-columns: minmax(330px, 1fr) minmax(240px, .65fr);
-            grid-template-rows: auto 1fr;
+            grid-template-columns: minmax(0, 1fr) minmax(160px, 22vw);
+            grid-template-rows: auto 1fr auto;
+            gap: 6px 8px;
         }
 
         .game-header {
-            grid-column: 1 / -1;
+            grid-column: 2;
+            grid-row: 1;
+            display: block;
+            padding: 0;
+        }
+
+        .title-group {
+            display: none;
+        }
+
+        .score-board {
+            width: 100%;
+            min-width: 0;
+            padding: 5px 8px;
         }
 
         .game-frame {
-            max-height: calc(100svh - 105px);
+            grid-column: 1;
+            grid-row: 1 / 4;
+            width: 100%;
+            height: calc(100svh - max(12px, env(safe-area-inset-top)) - max(12px, env(safe-area-inset-bottom)));
+            min-height: 0;
+            max-height: none;
+            aspect-ratio: auto;
+            border-radius: 14px;
         }
 
         .side-panel {
+            grid-column: 2;
+            grid-row: 2;
             align-self: center;
+        }
+
+        .controls {
+            display: block;
+        }
+
+        .controls p {
+            font-size: 11px;
+        }
+
+        .sound-button {
+            width: 100%;
+            min-height: 34px;
+            margin-top: 6px;
+        }
+
+        .aica-guide {
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: 6px;
+        }
+
+        .aica-guide span {
+            padding: 5px 2px;
+            font-size: 10px;
+        }
+
+        .site-links {
+            grid-column: 2;
+            grid-row: 3;
+            gap: 4px;
+            padding: 0;
+        }
+
+        .site-links a {
+            padding: 5px 7px;
+            font-size: 9px;
         }
     }
 
@@ -408,6 +474,10 @@
 
     <nav class="site-links" aria-label="解釈設計研究所">
         <a href="../index.html">解釈設計TOP</a>
+        <a href="game-hihiin.html" aria-current="page">ゲーム</a>
+        <a href="../manga/manga.html">漫画</a>
+        <a href="../music/music.html">音楽</a>
+        <a href="../diagram-library/diagram-library.html">図解ライブラリ</a>
         <a href="../koudou-hihiin/koudou-hihiin.html">行動ヒヒーン</a>
         <a href="../kanjou-buhii/kanjou-buhii.html">感情ブヒー</a>
         <a href="../tassei-paoon/tassei-paoon.html">達成パオーン</a>
@@ -458,16 +528,16 @@
         bgNoon: "backgrounds/noon.webp",
         bgSunset: "backgrounds/sunset.webp",
         bgNight: "backgrounds/night.webp",
-        dawnReached: "backgrounds/dawn-reached.webp"
+        dawnReached: "backgrounds/dawn-reached-wide.webp"
     };
 
     const dayDuration = 75;
     const phaseDefinitions = [
-        { key: "bgDawn", label: "夜明け", start: 0, end: .14 },
-        { key: "bgMorning", label: "朝", start: .14, end: .34 },
-        { key: "bgNoon", label: "昼", start: .34, end: .58 },
-        { key: "bgSunset", label: "夕方", start: .58, end: .78 },
-        { key: "bgNight", label: "夜", start: .78, end: 1 }
+        { key: "bgDawn", label: "夜明け", start: 0, end: .14, horizon: .68 },
+        { key: "bgMorning", label: "朝", start: .14, end: .34, horizon: .68 },
+        { key: "bgNoon", label: "昼", start: .34, end: .58, horizon: .68 },
+        { key: "bgSunset", label: "夕方", start: .58, end: .78, horizon: .68 },
+        { key: "bgNight", label: "夜", start: .78, end: 1, horizon: .68 }
     ];
     const obstaclePatterns = [
         [{ type: "low", gap: 2.05 }],
@@ -492,7 +562,6 @@
     let itemTimer = 0;
     let nextObstacle = 1.45;
     let nextItem = 2.8;
-    let lastMilestone = 0;
     let scoreMultiplier = 1;
     let multiplierTimer = 0;
     let invincibleTimer = 0;
@@ -501,6 +570,7 @@
     let jumpBuffer = 0;
     let jumpHeld = false;
     let jumpHoldTime = 0;
+    let inputStartedAt = 0;
     let combo = 0;
     let bestCombo = 0;
     let justCount = 0;
@@ -510,6 +580,8 @@
     let currentPattern = obstaclePatterns[0];
     let currentDay = 1;
     let dawnCelebration = 0;
+    let supportQueue = [];
+    let supportSeenThisDay = { buhii: false, maverick: false };
     let soundEnabled = true;
     let audioContext = null;
     let bestScore = Number(localStorage.getItem("gameHihiinBest") || 0);
@@ -551,7 +623,8 @@
         canvas.height = Math.round(height * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         groundY = height * 0.79;
-        player.width = Math.min(104, width * 0.21);
+        const gameScale = Math.min(width, height);
+        player.width = Math.min(104, gameScale * 0.21);
         player.height = player.width;
         player.x = width * 0.1;
         if (state !== "playing" || player.onGround) {
@@ -569,7 +642,6 @@
         itemTimer = 0;
         nextObstacle = 2.1;
         nextItem = 2.3;
-        lastMilestone = 0;
         scoreMultiplier = 1;
         multiplierTimer = 0;
         invincibleTimer = 0;
@@ -578,6 +650,7 @@
         jumpBuffer = 0;
         jumpHeld = false;
         jumpHoldTime = 0;
+        inputStartedAt = 0;
         combo = 0;
         bestCombo = 0;
         justCount = 0;
@@ -587,6 +660,8 @@
         currentPattern = obstaclePatterns[0];
         currentDay = 1;
         dawnCelebration = 0;
+        supportQueue = [];
+        supportSeenThisDay = { buhii: false, maverick: false };
         obstacles.length = 0;
         items.length = 0;
         particles.length = 0;
@@ -642,16 +717,27 @@
         beep(540, .07, "square", .025);
     }
 
-    function releaseJump() {
+    function releaseJump(event) {
         jumpHeld = false;
-        if (!player.onGround && player.velocityY < 0 && jumpHoldTime < .2) {
-            player.velocityY *= .55;
+        const actualHoldTime = inputStartedAt
+            ? Math.max(jumpHoldTime, (performance.now() - inputStartedAt) / 1000)
+            : jumpHoldTime;
+        inputStartedAt = 0;
+        if (!player.onGround && player.velocityY < 0 && actualHoldTime < .24) {
+            const isTouch = event && event.pointerType === "touch";
+            const cut = isTouch
+                ? (actualHoldTime < .13 ? .92 : .96)
+                : .55;
+            player.velocityY *= cut;
         }
     }
 
     function handleAction(event) {
         if (event && event.target instanceof Element && event.target.closest("button, a")) return;
-        if (state === "playing") jump();
+        if (state === "playing") {
+            inputStartedAt = performance.now();
+            jump();
+        }
     }
 
     function loop(now) {
@@ -739,16 +825,17 @@
             patternStep = 0;
         }
         const step = currentPattern[patternStep++];
+        const gameScale = Math.min(width, height);
         const dimensions = {
             low: { width: .105, height: .09 },
             wide: { width: .16, height: .095 },
             tall: { width: .11, height: .155 }
         }[step.type];
-        const obstacleWidth = width * dimensions.width;
-        const obstacleHeight = height * dimensions.height;
+        const obstacleWidth = gameScale * dimensions.width;
+        const obstacleHeight = gameScale * dimensions.height;
         nextObstacle = step.gap * Math.max(.8, 1 - elapsed / 260);
         obstacles.push({
-            x: width + 20,
+            x: findSafeSpawnX(obstacleWidth, items),
             y: groundY - obstacleHeight,
             width: obstacleWidth,
             height: obstacleHeight,
@@ -759,16 +846,31 @@
     }
 
     function spawnItem() {
-        const size = width * .105;
+        const size = Math.min(width, height) * .105;
         const high = Math.random() > .45;
         items.push({
-            x: width + 20,
+            x: findSafeSpawnX(size, obstacles),
             y: high ? groundY - player.height * 1.55 : groundY - player.height * .78,
             size,
             word: itemWords[aicaProgress],
             color: colors[aicaProgress],
             angle: 0
         });
+    }
+
+    function findSafeSpawnX(entityWidth, otherEntities) {
+        const margin = width * .18;
+        let candidate = width + 20;
+        for (const other of otherEntities) {
+            const otherWidth = other.width || other.size || 0;
+            const candidateEnd = candidate + entityWidth;
+            const otherStart = other.x - margin;
+            const otherEnd = other.x + otherWidth + margin;
+            if (candidateEnd > otherStart && candidate < otherEnd) {
+                candidate = otherEnd;
+            }
+        }
+        return candidate;
     }
 
     function updateObstacles(dt) {
@@ -845,7 +947,7 @@
                     aicaProgress = 0;
                     score += 100 * scoreMultiplier;
                     showMessage("AICA完成！ 達成パオーン");
-                    triggerSupport("paoon");
+                    requestSupport("paoon");
                 } else {
                     showMessage(`${item.word} ＋${20 * scoreMultiplier}`);
                 }
@@ -857,18 +959,23 @@
     }
 
     function checkTechniqueRewards() {
-        if (combo >= 5 && lastMilestone < 1) {
-            lastMilestone = 1;
-            triggerSupport("buhii");
+        const dayProgress = (elapsed % dayDuration) / dayDuration;
+        if ((combo >= 5 || dayProgress >= .28) && !supportSeenThisDay.buhii) {
+            supportSeenThisDay.buhii = true;
+            requestSupport("buhii");
         }
-        if (justCount >= 3 && lastMilestone < 2) {
-            lastMilestone = 2;
-            triggerSupport("maverick");
+        if ((justCount >= 3 || dayProgress >= .62) && !supportSeenThisDay.maverick) {
+            supportSeenThisDay.maverick = true;
+            requestSupport("maverick");
         }
-        if (combo >= 12 && lastMilestone < 3) {
-            lastMilestone = 3;
-            triggerSupport("buhii");
+    }
+
+    function requestSupport(type) {
+        if (support) {
+            if (!supportQueue.includes(type)) supportQueue.push(type);
+            return;
         }
+        triggerSupport(type);
     }
 
     function triggerSupport(type) {
@@ -925,19 +1032,24 @@
         } else {
             support.x = width * (1.1 - progress * 1.9);
         }
-        if (support.duration <= 0) support = null;
+        if (support.duration <= 0) {
+            support = null;
+            const next = supportQueue.shift();
+            if (next) triggerSupport(next);
+        }
     }
 
     function updateDayCycle() {
         const day = Math.floor(elapsed / dayDuration) + 1;
         if (day > currentDay) {
             currentDay = day;
+            supportSeenThisDay = { buhii: false, maverick: false };
             dawnCelebration = 3.2;
             obstacles.length = 0;
             invincibleTimer = Math.max(invincibleTimer, 4);
             score += 250 * currentDay;
             showMessage(`DAY ${currentDay}　夜明け到達！`);
-            triggerSupport("paoon");
+            requestSupport("paoon");
         }
         updateRunStatus();
     }
@@ -992,12 +1104,7 @@
         const phase = getDayPhase();
         const background = images[phase.key];
         if (background) {
-            const scale = Math.max(width / background.naturalWidth, height / background.naturalHeight);
-            const drawWidth = background.naturalWidth * scale;
-            const drawHeight = background.naturalHeight * scale;
-            const travel = Math.max(0, drawWidth - width);
-            const x = -((elapsed * 3.5) % Math.max(1, travel || 1));
-            ctx.drawImage(background, x, (height - drawHeight) / 2, drawWidth, drawHeight);
+            drawBackgroundImage(background, phase.horizon);
             ctx.fillStyle = phase.label === "昼" || phase.label === "朝"
                 ? "rgba(0,0,0,.2)"
                 : "rgba(0,0,0,.08)";
@@ -1026,6 +1133,20 @@
         }
     }
 
+    function drawBackgroundImage(image, sourceHorizonRatio) {
+        const sourceWidth = image.naturalWidth;
+        const sourceHeight = image.naturalHeight;
+        const scale = width / sourceWidth;
+        const drawHeight = sourceHeight * scale;
+        const sourceHorizon = sourceHeight * sourceHorizonRatio;
+        const targetHorizon = groundY - height * .055;
+        const drawY = targetHorizon - sourceHorizon * scale;
+
+        ctx.fillStyle = "#0b1422";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(image, 0, drawY, width, drawHeight);
+    }
+
     function drawDawnCelebration() {
         if (dawnCelebration <= 0) return;
         const image = images.dawnReached;
@@ -1033,7 +1154,9 @@
         ctx.save();
         ctx.globalAlpha = Math.max(0, alpha);
         if (image) {
-            const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+            ctx.fillStyle = "#07101e";
+            ctx.fillRect(0, 0, width, height);
+            const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
             const drawWidth = image.naturalWidth * scale;
             const drawHeight = image.naturalHeight * scale;
             ctx.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
